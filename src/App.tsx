@@ -9,7 +9,7 @@ import ErrorSection from "./components/ErrorSection";
 const App = () => {
   const [zipCode, setZipCode] = useState("");
   const { loading, error, data } = useWeatherByZip(zipCode);
-  const handleFormSubmit = (zipCode) => {
+  const handleFormSubmit = (zipCode: string) => {
     setZipCode(zipCode);
   };
 

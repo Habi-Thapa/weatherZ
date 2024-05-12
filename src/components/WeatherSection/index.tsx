@@ -3,12 +3,43 @@ import dayjs from "dayjs";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 
-const WeatherSection = ({ data }: { data: any }) => {
+interface WeatherData {
+  dt: number;
+  name: string;
+  sys: {
+    country: string;
+  };
+  main: {
+    feels_like: number;
+    temp: number;
+    pressure: number;
+    humidity: number;
+  };
+  weather: {
+    description: string;
+    icon: string;
+  }[];
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  visibility: number;
+}
+
+interface WeatherSectionProps {
+  data: WeatherData;
+}
+
+const WeatherSection = ({ data }: WeatherSectionProps) => {
+  // Convert Kelvin to Celsius
+  const temperatureCelsius = data?.main.temp - 273.15;
+  const feelsLikeCelsius = data?.main.feels_like - 273.15;
+
   return (
     <>
       <Grid item xs={12}>
         <Container maxWidth="md" sx={{ py: 4 }}>
-          <Typography sx={{ fontWeight: "bold ", color: "#eb6e4b" }}>
+          <Typography sx={{ fontWeight: "bold", color: "#eb6e4b" }}>
             {dayjs(data?.dt * 1000).format("MMMM D, h:mm A")}
           </Typography>
           <Typography
@@ -21,7 +52,7 @@ const WeatherSection = ({ data }: { data: any }) => {
               textTransform: "capitalize",
             }}
           >
-            {`Feels like ${data?.main.feels_like}. `}
+            {`Feels like ${feelsLikeCelsius.toFixed(1)}°C. `}
             {data?.weather[0].description}
           </Typography>
         </Container>
@@ -34,7 +65,7 @@ const WeatherSection = ({ data }: { data: any }) => {
             className="w-24 h-24"
           />
           <Typography variant="h2" fontWeight="semibold">
-            {data?.main.temp} °C
+            {temperatureCelsius.toFixed(1)} °C
           </Typography>
         </Grid>
         <Divider
@@ -68,7 +99,7 @@ const WeatherSection = ({ data }: { data: any }) => {
               lineHeight: "inherit",
             }}
           >
-            <ExploreOutlinedIcon sx={{ fontSize: "1rem" }} />{" "}
+            <ExploreOutlinedIcon sx={{ fontSize: "1rem" }} />
             {data?.main.pressure}hPa
           </Typography>
           <Typography sx={{ fontSize: "inherit", lineHeight: "inherit" }}>
