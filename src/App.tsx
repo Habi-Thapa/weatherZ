@@ -1,7 +1,7 @@
 import { useWeatherByZip } from "./api/hooks/useWeatherByZip";
 
 const App = () => {
-  const { loading, error, data } = useWeatherByZip("10001");
+  const { loading, error, data } = useWeatherByZip("1");
 
   return (
     <>

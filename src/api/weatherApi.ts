@@ -9,6 +9,9 @@ export const getWeatherByZip = async (zip: string) => {
     });
     return response.data;
   } catch (error) {
-    console.error(error);
+    // console.error(error);
+    throw new Error(
+      error.response.data.message || "Error fetching weather data"
+    );
   }
 };

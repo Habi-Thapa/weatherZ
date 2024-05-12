@@ -8,13 +8,14 @@ export const useWeatherByZip = (zip: string) => {
 
   useEffect(() => {
     const fetchWeather = async () => {
-      setLoading(true);
       try {
+        setLoading(true);
         const response = await getWeatherByZip(zip);
         setData(response);
-        setLoading(false);
       } catch (error) {
-        setError(error);
+        // console.log("Error log", error.message);
+        setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
