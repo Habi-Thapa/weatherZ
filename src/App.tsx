@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import SearchForm from "./components/SearchForm";
 import WeatherSection from "./components/WeatherSection";
 import WeatherSkeleton from "./components/WeatherSkeleton";
+import ErrorSection from "./components/ErrorSection";
 const App = () => {
   const [zipCode, setZipCode] = useState("");
   const { loading, error, data } = useWeatherByZip(zipCode);
@@ -17,9 +18,14 @@ const App = () => {
           Hero Section
         </Grid> */}
         <SearchForm zipCode={zipCode} setZipCode={setZipCode} />
-        {loading && <WeatherSkeleton />}
-        {error && <p>Error: {error.message}</p>}
-        {!loading && data && <WeatherSection data={data} />}
+        {loading && !error && <WeatherSkeleton />}
+        {error && (
+          <>
+            <ErrorSection error={error} />
+            <WeatherSkeleton />
+          </>
+        )}
+        {!loading && !error && data && <WeatherSection data={data} />}
       </Grid>
     </>
   );

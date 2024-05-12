@@ -12,9 +12,11 @@ export const useWeatherByZip = (zip: string) => {
         setLoading(true);
         const response = await getWeatherByZip(zip);
         setData(response);
+        setError(null);
       } catch (error) {
         // console.log("Error log", error.message);
         setError(error.message);
+        setData(null);
       } finally {
         setLoading(false);
       }

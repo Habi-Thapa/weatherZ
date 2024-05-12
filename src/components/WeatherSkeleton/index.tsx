@@ -17,7 +17,12 @@ const WeatherSkeleton = () => {
       </Grid>
       <Container maxWidth="md" sx={{ display: "flex" }}>
         <Grid item xs={12} md={6} display="flex" alignItems="center">
-          <Skeleton variant="rectangular" width={96} height={96} />
+          <Skeleton
+            variant="rectangular"
+            width={64}
+            height={64}
+            sx={{ mr: 2 }}
+          />
           <Skeleton variant="text" width={140} height={64} />
         </Grid>
         <Divider
