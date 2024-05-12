@@ -1,8 +1,12 @@
 import { Button, Container, Grid, TextField } from "@mui/material";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const SearchForm = ({ onSubmit }: any) => {
-  const [zipCode, setZipCode] = useState("");
+interface SearchFormProps {
+  onSubmit: (zipCode: string) => void;
+}
+
+const SearchForm = ({ onSubmit }: SearchFormProps) => {
+  const [zipCode, setZipCode] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

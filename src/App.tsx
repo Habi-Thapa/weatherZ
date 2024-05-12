@@ -20,11 +20,7 @@ const App = () => {
         {/* <Grid item xs={12}>
           Hero Section
         </Grid> */}
-        <SearchForm
-          // zipCode={zipCode}
-          // setZipCode={setZipCode}
-          onSubmit={handleFormSubmit}
-        />
+        <SearchForm onSubmit={handleFormSubmit} />
         {loading && !error && <WeatherSkeleton />}
         {error && (
           <>
