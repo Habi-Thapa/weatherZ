@@ -71,6 +71,19 @@ const App = () => {
             <Typography>
               {dayjs(data?.dt * 1000).format("MMMM D, h:mm A")}
             </Typography>
+            <Typography>{`${data.name}, ${data.sys.country}`}</Typography>
+            <Typography>{`Feels like ${data.main.feels_like}, ${data.weather[0].description}`}</Typography>
+            <img
+              src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
+              alt="Weather Icon"
+            />
+            <Typography>Temp: {data.main.temp}</Typography>
+            <Typography>
+              Wind Direction: {data.wind.speed}mph {data.wind.deg}degree
+            </Typography>
+            <Typography>Humidity: {data.main.humidity}%</Typography>
+            <Typography>Visibility: {data.visibility / 1000}km</Typography>
+            <Typography>Pressure: {data.main.pressure}hPa</Typography>
           </Container>
         </Grid>
       </Grid>
