@@ -9,6 +9,9 @@ import ErrorSection from "./components/ErrorSection";
 const App = () => {
   const [zipCode, setZipCode] = useState("");
   const { loading, error, data } = useWeatherByZip(zipCode);
+  const handleFormSubmit = (zipCode) => {
+    setZipCode(zipCode);
+  };
 
   return (
     <>
@@ -17,7 +20,11 @@ const App = () => {
         {/* <Grid item xs={12}>
           Hero Section
         </Grid> */}
-        <SearchForm zipCode={zipCode} setZipCode={setZipCode} />
+        <SearchForm
+          // zipCode={zipCode}
+          // setZipCode={setZipCode}
+          onSubmit={handleFormSubmit}
+        />
         {loading && !error && <WeatherSkeleton />}
         {error && (
           <>
