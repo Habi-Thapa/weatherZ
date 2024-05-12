@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useWeatherByZip } from "./api/hooks/useWeatherByZip";
 import { useState } from "react";
+import dayjs from "dayjs";
 
 const App = () => {
   const [zipCode, setZipCode] = useState("");
@@ -56,16 +57,20 @@ const App = () => {
                 px: 3,
                 width: "auto",
                 whiteSpace: "nowrap",
+                fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
               }}
             >
-              Get Weather Info
+              Get Info
             </Button>
           </Container>
         </Grid>
         <Grid item xs={12}>
           <Container maxWidth="md" sx={{ py: 4 }}>
             Weather Data
-            {!loading && data && <p>{JSON.stringify(data)}</p>}
+            {/* {!loading && data && <p>{JSON.stringify(data)}</p>} */}
+            <Typography>
+              {dayjs(data?.dt * 1000).format("MMMM D, h:mm A")}
+            </Typography>
           </Container>
         </Grid>
       </Grid>
