@@ -7,7 +7,7 @@ import WeatherSection from "./components/WeatherSection";
 import WeatherSkeleton from "./components/WeatherSkeleton";
 import ErrorSection from "./components/ErrorSection";
 const App = () => {
-  const [zipCode, setZipCode] = useState("");
+  const [zipCode, setZipCode] = useState("10001");
   const { loading, error, data } = useWeatherByZip(zipCode);
   const handleFormSubmit = (zipCode: string) => {
     setZipCode(zipCode);
