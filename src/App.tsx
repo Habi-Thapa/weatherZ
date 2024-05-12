@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   CssBaseline,
+  Divider,
   Grid,
   TextField,
   Toolbar,
@@ -11,7 +12,8 @@ import {
 import { useWeatherByZip } from "./api/hooks/useWeatherByZip";
 import { useState } from "react";
 import dayjs from "dayjs";
-
+import NavigationIcon from "@mui/icons-material/Navigation";
+import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 const App = () => {
   const [zipCode, setZipCode] = useState("");
   const { loading, error, data } = useWeatherByZip(zipCode);
@@ -66,26 +68,83 @@ const App = () => {
         </Grid>
         <Grid item xs={12}>
           <Container maxWidth="md" sx={{ py: 4 }}>
-            Weather Data
             {/* {!loading && data && <p>{JSON.stringify(data)}</p>} */}
-            <Typography>
+            <Typography sx={{ fontWeight: "bold ", color: "#eb6e4b" }}>
               {dayjs(data?.dt * 1000).format("MMMM D, h:mm A")}
             </Typography>
-            <Typography>{`${data.name}, ${data.sys.country}`}</Typography>
-            <Typography>{`Feels like ${data.main.feels_like}, ${data.weather[0].description}`}</Typography>
-            <img
-              src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-              alt="Weather Icon"
-            />
-            <Typography>Temp: {data.main.temp}</Typography>
-            <Typography>
-              Wind Direction: {data.wind.speed}mph {data.wind.deg}degree
+            <Typography
+              variant="h4"
+              sx={{ fontWeight: "bold" }}
+            >{`${data?.name}, ${data?.sys.country}`}</Typography>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                textTransform: "capitalize",
+              }}
+            >
+              {`Feels like ${data?.main.feels_like}. `}
+              {data?.weather[0].description}
             </Typography>
-            <Typography>Humidity: {data.main.humidity}%</Typography>
-            <Typography>Visibility: {data.visibility / 1000}km</Typography>
-            <Typography>Pressure: {data.main.pressure}hPa</Typography>
           </Container>
         </Grid>
+        <Container maxWidth="md" sx={{ display: "flex" }}>
+          <Grid item xs={12} md={6} display="flex" alignItems="center">
+            <img
+              src={`https://openweathermap.org/img/wn/${data?.weather[0].icon}.png`}
+              alt="Weather Icon"
+              className="w-24 h-24"
+            />
+            <Typography variant="h2" fontWeight="semibold">
+              {data?.main.temp} °C
+            </Typography>
+          </Grid>
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{
+              borderColor: "#eb6e4b",
+              borderWidth: "1.1px",
+              mx: 6,
+            }}
+          />
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{ fontSize: "1.2rem", lineHeight: 1.8 }}
+          >
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                fontSize: "inherit",
+                lineHeight: "inherit",
+              }}
+            >
+              <NavigationIcon sx={{ fontSize: "1rem" }} /> {data?.wind.speed}
+              mph, {data?.wind.deg}°
+            </Typography>
+            <Typography
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                fontSize: "inherit",
+                lineHeight: "inherit",
+              }}
+            >
+              <ExploreOutlinedIcon sx={{ fontSize: "1rem" }} />{" "}
+              {data?.main.pressure}hPa
+            </Typography>
+            <Typography sx={{ fontSize: "inherit", lineHeight: "inherit" }}>
+              Humidity: {data?.main.humidity}%
+            </Typography>
+            <Typography sx={{ fontSize: "inherit", lineHeight: "inherit" }}>
+              Visibility: {data?.visibility / 1000}km
+            </Typography>
+          </Grid>
+        </Container>
       </Grid>
     </>
   );
